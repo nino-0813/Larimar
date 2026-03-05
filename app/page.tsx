@@ -67,10 +67,11 @@ export default function HomePage() {
   return (
     <div className="bg-white text-stone-900 flex flex-col flex-1">
       {/* トップ画像 */}
-      <section className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9", minHeight: "280px" }}>
+      <section className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9", minHeight: "280px" }} aria-label="Larimar サロンイメージ">
         <img
           src={TOP_HERO_IMAGE}
-          alt="Larimar"
+          alt="福山市沼隈町のプライベートサロン。ヘア・マツエク・リンパ・温活のトータルビューティーサロン Larimar（ラリマー）"
+          title="福山市沼隈町のプライベートサロン。ヘア・マツエク・リンパ・温活をしている Larimar（ラリマー）"
           className="absolute inset-0 w-full h-full object-cover"
         />
       </section>
