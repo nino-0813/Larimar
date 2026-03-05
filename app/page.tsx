@@ -1,14 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const SLIDER_INTERVAL_MS = 5000;
-
-const TOP_SLIDER_IMAGES = [
-  "/images/スクリーンショット 2026-03-03 15.36.19.png",
-  "/images/スクリーンショット 2026-03-03 15.37.18.png",
-].map((path) => (path.startsWith("/") ? path.split("/").slice(0, -1).join("/") + "/" + encodeURIComponent(path.split("/").pop()!) : path));
+const TOP_HERO_IMAGE = "/images/Larimar.svg";
 
 const MAP_URL =
   "https://www.google.com/maps/search/?api=1&query=広島県福山市沼隈町草深2156-7";
@@ -70,43 +64,15 @@ const menuDetail = {
 };
 
 export default function HomePage() {
-  const [slideIndex, setSlideIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSlideIndex((prev) => (prev + 1) % TOP_SLIDER_IMAGES.length);
-    }, SLIDER_INTERVAL_MS);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <div className="bg-white text-stone-900 flex flex-col flex-1">
-      {/* トップ画像スライダー */}
-      <section className="relative w-full bg-stone-200 overflow-hidden" style={{ aspectRatio: "16/9", minHeight: "280px" }}>
-        {TOP_SLIDER_IMAGES.map((src, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={i === 0 ? "Larimar 外観" : "Larimar 店内"}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-              i === slideIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
-          />
-        ))}
-        {/* スライドインジケーター */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-          {TOP_SLIDER_IMAGES.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              aria-label={`スライド ${i + 1}`}
-              onClick={() => setSlideIndex(i)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                i === slideIndex ? "bg-white scale-125" : "bg-white/50 hover:bg-white/80"
-              }`}
-            />
-          ))}
-        </div>
+      {/* トップ画像 */}
+      <section className="relative w-full bg-stone-100 overflow-hidden" style={{ aspectRatio: "16/9", minHeight: "280px" }}>
+        <img
+          src={TOP_HERO_IMAGE}
+          alt="Larimar"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </section>
 
       {/* お店の紹介 */}

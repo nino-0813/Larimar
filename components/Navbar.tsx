@@ -38,11 +38,7 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link href="/" className="group cursor-pointer">
-          <h1 className="text-xl md:text-2xl font-bold text-stone-900 tracking-tight">
-            Larimar
-          </h1>
-        </Link>
+        <div className="w-0 md:w-auto" aria-hidden />
 
         <div className="hidden md:flex items-center space-x-10">
           {navItems.map((item) => (
