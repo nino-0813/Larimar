@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -47,6 +47,31 @@ export default function ReservationPage() {
     service: "美容室（カット）",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/reservations")
+      .then((res) => res.json())
+      .then((list: Array<{ date?: string; time?: string }>) => {
+        if (cancelled || !Array.isArray(list)) return;
+        const set = new Set<string>();
+        list.forEach((r) => {
+          if (r.date && r.time) set.add(`${r.date}_${r.time}`);
+        });
+        setBookedSlots(set);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const isTimeBooked = (date: Date, time: string) =>
+    bookedSlots.has(`${format(date, "yyyy-MM-dd")}_${time}`);
+
+  const isDateFull = (day: Date) =>
+    timeSlots.every((t) => isTimeBooked(day, t));
 
   const renderHeader = () => (
     <div className="flex items-center justify-between mb-8">
@@ -99,13 +124,14 @@ export default function ReservationPage() {
           const isSelected = isSameDay(day, selectedDate);
           const isCurrentMonth = isSameMonth(day, monthStart);
           const isPast = isBefore(day, startOfToday());
-          // 不定休のため曜日による休業なし
+          const full = !isPast && isDateFull(day);
+          const disabled = isPast || full;
 
           return (
             <button
               key={i}
               type="button"
-              disabled={isPast}
+              disabled={disabled}
               onClick={() => {
                 setSelectedDate(day);
                 setSelectedTime(null);
@@ -114,7 +140,8 @@ export default function ReservationPage() {
                 aspect-square flex flex-col items-center justify-center rounded-xl text-sm transition-all relative
                 ${!isCurrentMonth ? "text-stone-200" : ""}
                 ${isSelected ? "bg-sage-600 text-white luxury-shadow" : "hover:bg-sage-50"}
-                ${isPast ? "opacity-30 cursor-not-allowed" : "cursor-pointer"}
+                ${disabled ? "opacity-30 cursor-not-allowed" : "cursor-pointer"}
+                ${full ? "line-through" : ""}
               `}
             >
               <span>{format(day, "d")}</span>
@@ -221,23 +248,29 @@ export default function ReservationPage() {
                 2. 時間を選ぶ
               </h4>
                   <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                    {timeSlots.map((time) => (
-                      <button
-                        key={time}
-                        type="button"
-                        onClick={() => setSelectedTime(time)}
-                        className={`
-                          py-3 rounded-xl text-sm transition-all
-                          ${
-                            selectedTime === time
-                              ? "bg-stone-800 text-white"
-                              : "bg-stone-50 hover:bg-sage-50 text-stone-600"
-                          }
-                        `}
-                      >
-                        {time}
-                      </button>
-                    ))}
+                    {timeSlots.map((time) => {
+                      const booked = isTimeBooked(selectedDate, time);
+                      return (
+                        <button
+                          key={time}
+                          type="button"
+                          disabled={booked}
+                          onClick={() => setSelectedTime(time)}
+                          className={`
+                            py-3 rounded-xl text-sm transition-all
+                            ${
+                              booked
+                                ? "bg-stone-100 text-stone-300 cursor-not-allowed line-through"
+                                : selectedTime === time
+                                  ? "bg-stone-800 text-white"
+                                  : "bg-stone-50 hover:bg-sage-50 text-stone-600"
+                            }
+                          `}
+                        >
+                          {time}
+                        </button>
+                      );
+                    })}
                   </div>
                 </motion.div>
               )}
