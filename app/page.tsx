@@ -9,8 +9,13 @@ const MAP_URL =
 
 const OWNER_IMAGE =
   "/images/" + encodeURIComponent("スクリーンショット 2026-03-03 15.44.57.png");
-const OWNER_INTRO =
-  "福山市沼隈町にあるアットホームな個人サロンです。美容師歴20年。沼隈の全ての女性を美しく。";
+const OWNER_INTRO = (
+  <>
+    福山市沼隈町にあるアットホームな個人サロンです。
+    <br />
+    美容師歴20年。
+  </>
+);
 
 export default function HomePage() {
   return (
