@@ -33,7 +33,6 @@ export default function HomePage() {
         </p>
       </section>
 
-<<<<<<< HEAD
       {/* メニュー（画像） */}
       <section className="max-w-2xl mx-auto px-6 py-16 border-t border-stone-200 w-full" aria-label="メニュー">
         <h2 className="text-2xl font-bold mb-8">メニュー</h2>
@@ -50,19 +49,6 @@ export default function HomePage() {
           </picture>
         </div>
         <p className="mt-4 text-stone-500 text-sm text-center">※料金・詳細はお問い合わせまたはご予約時にお尋ねください。</p>
-=======
-      {/* メニュー（概要） */}
-      <section className="max-w-2xl mx-auto px-6 py-16 border-t border-stone-200 w-full">
-        <h2 className="text-2xl font-bold mb-8">メニュー</h2>
-        <div className="space-y-8">
-          {menuSummary.map((item) => (
-            <div key={item.title}>
-              <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-              <p className="text-stone-600 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
->>>>>>> d9ac727de6bf9361e9ad21216c0ba8b3e798f303
       </section>
 
       {/* 地図・住所・アクセス・営業時間 */}
@@ -125,30 +111,6 @@ export default function HomePage() {
         </div>
       </section>
 
-<<<<<<< HEAD
-=======
-      {/* メニュー詳細（価格付き） */}
-      <section className="max-w-2xl mx-auto px-6 py-16 border-t border-stone-200 w-full">
-        <h2 className="text-2xl font-bold mb-8">メニュー</h2>
-        <div className="space-y-10">
-          {(Object.entries(menuDetail) as [keyof typeof menuDetail, typeof menuDetail.ヘア][]).map(([category, items]) => (
-            <div key={category}>
-              <h3 className="font-bold text-lg mb-4">{category}</h3>
-              <ul className="space-y-3">
-                {items.map((item, i) => (
-                  <li key={i} className="flex justify-between items-baseline">
-                    <span>{item.name}</span>
-                    <span className="text-stone-600 tabular-nums">{item.price}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p className="mt-8 text-stone-500 text-sm">※料金は税込です。詳細はお問い合わせください。</p>
-      </section>
-
->>>>>>> d9ac727de6bf9361e9ad21216c0ba8b3e798f303
       {/* CTA */}
       <section className="max-w-2xl mx-auto px-6 py-16 border-t border-stone-200 text-center w-full">
         <Link
