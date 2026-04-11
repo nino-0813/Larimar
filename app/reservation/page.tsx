@@ -192,11 +192,16 @@ export default function ReservationPage() {
             <CheckCircle2 className="text-sage-600" size={40} />
           </div>
           <h2 className="text-3xl font-serif mb-6">ご予約を承りました</h2>
-          <p className="text-stone-500 mb-10 leading-relaxed">
+          <p className="text-stone-500 mb-10 leading-relaxed max-w-lg mx-auto">
             ご予約ありがとうございます。
             <br />
+            <br />
             {format(selectedDate, "yyyy年MM月dd日")} {selectedTime}{" "}
-            のご来店をお待ちしております。
+            のご希望は仮予約としてお預かりいたしました。
+            <br />
+            <br />
+            この時点では確定ではございません。確定のご案内はメールにてご連絡いたします。
+            <br />
             <br />
             福山市沼隈町 Larimar（ラリマー）でお会いしましょう。
           </p>
