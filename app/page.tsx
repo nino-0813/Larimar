@@ -31,11 +31,17 @@ export default function HomePage() {
       </section>
 
       {/* お店の紹介 */}
-      <section className="max-w-2xl mx-auto px-6 pt-24 pb-16 w-full">
-        <h2 className="text-2xl font-bold mb-6">お店の紹介</h2>
-        <p className="leading-relaxed">
-          Larimar（ラリマー）は、広島県福山市沼隈町にあるプライベートサロンです。美容室・マツエク・リンパマッサージ・温活（よもぎ蒸し・ハーブ蒸し）で、ヘアから体のケアまでトータルでお任せいただけます。夜21時まで営業、不定休なのでお仕事帰りやお休みの日にもご利用いただけます。
-        </p>
+      <section className="max-w-2xl mx-auto px-6 pt-20 sm:pt-24 pb-16 w-full">
+        <div className="rounded-2xl border border-stone-200 bg-white shadow-sm p-7 sm:p-10">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">お店の紹介</h2>
+          <div className="mt-2 h-px w-12 bg-stone-900/20" aria-hidden="true" />
+          <p className="mt-6 leading-relaxed text-stone-700 text-[15px] sm:text-base">
+            Larimar（ラリマー）は、広島県福山市沼隈町にあるプライベートサロンです。美容室・マツエク・リンパマッサージ・温活（よもぎ蒸し・ハーブ蒸し）で、ヘアから体のケアまでトータルでお任せいただけます。
+          </p>
+          <p className="mt-4 leading-relaxed text-stone-700 text-[15px] sm:text-base">
+            夜21時まで営業、不定休なのでお仕事帰りやお休みの日にもご利用いただけます。
+          </p>
+        </div>
       </section>
 
       {/* メニュー（画像） */}
@@ -70,30 +76,48 @@ export default function HomePage() {
             title="Larimar 地図"
           />
         </div>
-        <div className="mt-8 space-y-4">
-          <div>
-            <h3 className="font-bold text-sm mb-1">住所</h3>
-            <p className="text-stone-600">〒720-0311 広島県福山市沼隈町草深2156-7</p>
-          </div>
-          <div>
-            <h3 className="font-bold text-sm mb-1">アクセス</h3>
-            <p className="text-stone-600">車でお越しください。駐車場のご案内はお問い合わせください。</p>
-          </div>
-          <div>
-            <h3 className="font-bold text-sm mb-1">電話番号</h3>
-            <p className="text-stone-600">ご予約・お問い合わせは<Link href="/contact" className="text-blue-600 underline">お問い合わせフォーム</Link>または<Link href="/reservation" className="text-blue-600 underline">Web予約</Link>からどうぞ。</p>
-          </div>
-          <a
-            href={MAP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors"
-          >
-            Googleマップで見る
-          </a>
-          <div className="pt-6 space-y-1">
-            <p className="text-stone-600"><span className="font-bold">営業時間</span> 9:00 〜 21:00（最終受付 20:00）</p>
-            <p className="text-stone-600"><span className="font-bold">定休日</span> 不定休</p>
+        <div className="mt-8 rounded-2xl border border-stone-200 bg-white shadow-sm p-6 sm:p-8">
+          <dl className="grid grid-cols-1 gap-5 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] gap-1 sm:gap-4">
+              <dt className="text-xs tracking-widest uppercase text-stone-500">住所</dt>
+              <dd className="text-stone-800">〒720-0311 広島県福山市沼隈町草深2156-7</dd>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] gap-1 sm:gap-4">
+              <dt className="text-xs tracking-widest uppercase text-stone-500">アクセス</dt>
+              <dd className="text-stone-700">車でお越しください。駐車場のご案内はお問い合わせください。</dd>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] gap-1 sm:gap-4">
+              <dt className="text-xs tracking-widest uppercase text-stone-500">ご予約</dt>
+              <dd className="text-stone-700">
+                ご予約・お問い合わせは
+                <Link href="/contact" className="text-blue-700 underline underline-offset-4 hover:text-blue-800">
+                  お問い合わせフォーム
+                </Link>
+                または
+                <Link href="/reservation" className="text-blue-700 underline underline-offset-4 hover:text-blue-800">
+                  Web予約
+                </Link>
+                からどうぞ。
+              </dd>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] gap-1 sm:gap-4">
+              <dt className="text-xs tracking-widest uppercase text-stone-500">営業時間</dt>
+              <dd className="text-stone-800">9:00 〜 21:00（最終受付 20:00）</dd>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] gap-1 sm:gap-4">
+              <dt className="text-xs tracking-widest uppercase text-stone-500">定休日</dt>
+              <dd className="text-stone-800">不定休</dd>
+            </div>
+          </dl>
+          <div className="mt-7">
+            <a
+              href={MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-blue-700 text-white text-sm font-medium rounded-full hover:bg-blue-800 transition-colors"
+            >
+              Googleマップで見る
+            </a>
           </div>
         </div>
       </section>
