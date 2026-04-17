@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const TOP_HERO_IMAGE = "/images/Larimar.svg";
+const TOP_HERO_IMAGE = "/images/larimar.png";
 
 const MAP_URL =
   "https://www.google.com/maps/search/?api=1&query=広島県福山市沼隈町草深2156-7";

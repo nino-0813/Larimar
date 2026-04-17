@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Larimar（ラリマー）| 福山市沼隈町の美容室・マツエク・温活サロン",
   description:
     "広島県福山市沼隈町のプライベートサロン。美容室・マツエク・リンパマッサージ・よもぎ蒸し・ハーブ蒸し。夜21時まで営業、デトックス・代謝UPでトータルビューティー。",
+  icons: {
+    icon: "/images/333.png",
+  },
 };
 
 export default function RootLayout({

@@ -38,7 +38,17 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="w-0 md:w-auto" aria-hidden />
+        <Link
+          href="/"
+          className="flex items-center shrink-0"
+          aria-label="Larimar トップへ"
+        >
+          <img
+            src="/images/111.png"
+            alt="Larimar"
+            className="h-8 w-auto md:h-9"
+          />
+        </Link>
 
         <div className="hidden md:flex items-center space-x-10">
           {navItems.map((item) => (
