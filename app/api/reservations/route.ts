@@ -42,6 +42,28 @@ function getSheetsClient() {
 
 const SHEET_NAME = process.env.GOOGLE_SHEET_NAME ?? "予約";
 
+const RESERVATION_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** サロン所在地に合わせ、カレンダー日の判定は Asia/Tokyo を使用する */
+function todayYmdInTokyo(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Tokyo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
+function addDaysToYmd(ymd: string, days: number): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  dt.setUTCDate(dt.getUTCDate() + days);
+  const yy = dt.getUTCFullYear();
+  const mm = String(dt.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(dt.getUTCDate()).padStart(2, "0");
+  return `${yy}-${mm}-${dd}`;
+}
+
 export async function GET() {
   const client = getSheetsClient();
   if (client) {
@@ -83,6 +105,21 @@ export async function POST(request: NextRequest) {
   if (!name || !email || !phone || !service || !date || !time) {
     return NextResponse.json(
       { error: "Missing required fields" },
+      { status: 400 }
+    );
+  }
+
+  if (!RESERVATION_DATE_RE.test(date)) {
+    return NextResponse.json({ error: "Invalid date" }, { status: 400 });
+  }
+
+  const minAllowedDate = addDaysToYmd(todayYmdInTokyo(), 3);
+  if (date < minAllowedDate) {
+    return NextResponse.json(
+      {
+        error:
+          "予約は3日後以降の日付のみご利用いただけます。日付をご確認ください。",
+      },
       { status: 400 }
     );
   }

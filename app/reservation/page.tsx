@@ -16,6 +16,7 @@ import {
   eachDayOfInterval,
   isBefore,
   startOfToday,
+  addDays,
 } from "date-fns";
 import { ja } from "date-fns/locale";
 import { ChevronLeft, ChevronRight, CheckCircle2, Info } from "lucide-react";
@@ -36,7 +37,8 @@ const timeSlots = [
 ];
 
 export default function ReservationPage() {
-  const [selectedDate, setSelectedDate] = useState<Date>(startOfToday());
+  const minReservationDate = addDays(startOfToday(), 3);
+  const [selectedDate, setSelectedDate] = useState<Date>(minReservationDate);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -65,6 +67,11 @@ export default function ReservationPage() {
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  useEffect(() => {
+    const min = addDays(startOfToday(), 3);
+    setSelectedDate((prev) => (isBefore(prev, min) ? min : prev));
   }, []);
 
   const isTimeBooked = (date: Date, time: string) =>
@@ -123,9 +130,9 @@ export default function ReservationPage() {
         {calendarDays.map((day, i) => {
           const isSelected = isSameDay(day, selectedDate);
           const isCurrentMonth = isSameMonth(day, monthStart);
-          const isPast = isBefore(day, startOfToday());
-          const full = !isPast && isDateFull(day);
-          const disabled = isPast || full;
+          const beforeMinBookable = isBefore(day, minReservationDate);
+          const full = !beforeMinBookable && isDateFull(day);
+          const disabled = beforeMinBookable || full;
 
           return (
             <button
@@ -258,6 +265,10 @@ export default function ReservationPage() {
                   <h4 className="text-sm uppercase tracking-widest font-bold text-stone-400 mb-8">
                 1. 日付を選ぶ
               </h4>
+              <p className="text-xs text-stone-500 mb-6 leading-relaxed">
+                ご予約は本日より<strong className="text-stone-700">3日後以降</strong>
+                の日付からお選びいただけます。
+              </p>
               {renderHeader()}
               {renderDays()}
               {renderCells()}
