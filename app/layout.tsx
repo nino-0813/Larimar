@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { FloatingReserve } from "@/components/FloatingReserve";
 
 export const metadata: Metadata = {
   title: "Larimar（ラリマー）| 福山市沼隈町の美容室・マツエク・温活サロン",
@@ -41,6 +42,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingReserve />
       </body>
     </html>
   );
